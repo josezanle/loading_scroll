@@ -93,26 +93,22 @@ const loadQuotes = async (page, limit) => {
 //     passive: true
 // });
 
+$(document.body).on('touchmove', onScroll); // for mobile
+$(window).on('scroll', onScroll);
 
-window.addEventListener('touchmove', onScroll);
+// callback
 function onScroll() {
-    const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+    const {
+        scrollTop,
+        scrollHeight,
+        clientHeight
+    } = document.documentElement;
+
     if (scrollTop + clientHeight >= scrollHeight - 5 &&
         hasMoreQuotes(currentPage, limit, total)) {
         currentPage++;
         loadQuotes(currentPage, limit);
     }
 }
-
-// $(document.body).on('touchmove', onScroll); // for mobile
-// $(window).on('scroll', onScroll);
-
-// // callback
-// function onScroll() {
-//     if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
-//         track_page++;
-//         load_contents(track_page);
-//     }
-// }
 
 loadQuotes(currentPage, limit);
